@@ -27,13 +27,20 @@ import "./Board.css";
  *
  **/
 
-function Board({ nrows, ncols, chanceLightStartsOn }) {
+function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.25 }) {
   const [board, setBoard] = useState(createBoard());
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   function createBoard() {
     let initialBoard = [];
     // TODO: create array-of-arrays of true/false values
+    for(let y = 0; y < nrows; y++){
+      initialBoard[y] = [];
+      for(let x = 0; x < ncols; x++){
+        const lightOn = Math.random() > chanceLightStartsOn ? false : true;
+        initialBoard[y].push(lightOn);
+      }
+    }
     return initialBoard;
   }
 
