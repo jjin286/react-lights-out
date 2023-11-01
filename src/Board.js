@@ -33,7 +33,7 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.25 }) {
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   function createBoard() {
     let initialBoard = [];
-    // TODO: create array-of-arrays of true/false values
+
     for(let y = 0; y < nrows; y++){
       initialBoard[y] = [];
       for(let x = 0; x < ncols; x++){
@@ -44,8 +44,18 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.25 }) {
     return initialBoard;
   }
 
+  /** Evaluates whether board has true in any cells
+   * variables board, nrows, and ncols are all pulled from state
+   * returns false if true is present, true if not
+   */
   function hasWon() {
-    // TODO: check the board in state to determine whether the player has won.
+    for(let y = 0; y < nrows; y++){
+      for(let x = 0; x < ncols; x++){
+        if (board[y][x] === true) return false;
+      }
+    }
+
+    return true;
   }
 
   function flipCellsAround(coord) {
@@ -61,8 +71,10 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.25 }) {
       };
 
       // TODO: Make a (deep) copy of the oldBoard
+      const boardCopy = [...oldBoard];
 
       // TODO: in the copy, flip this cell and the cells around it
+      
 
       // TODO: return the copy
     });
