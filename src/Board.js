@@ -71,12 +71,17 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.25 }) {
       };
 
       // TODO: Make a (deep) copy of the oldBoard
-      const boardCopy = [...oldBoard];
+      const boardCopy = oldBoard.map( row => [...row]);
 
       // TODO: in the copy, flip this cell and the cells around it
-      
+      flipCell(y, x, boardCopy);
+      flipCell(y+1, x, boardCopy);
+      flipCell(y-1, x, boardCopy);
+      flipCell(y, x+1, boardCopy);
+      flipCell(y, x-1, boardCopy);
 
       // TODO: return the copy
+      return boardCopy;
     });
   }
 
@@ -87,6 +92,32 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.25 }) {
   // make table board
 
   // TODO
+  if(hasWon())
+  return(
+    <div>
+      You won!
+    </div>
+  )
+
+  return(
+    <div>
+      <table>
+        <tbody>
+          {board.map( (row, yIdx) => {
+            return(
+              <div>
+                {
+                row.map( (el, xIdx) => {
+                  return <Cell flipCellsAroundMe={flipCellsAround} isLit={el} idx={`${yIdx}-${xIdx}`}/>
+                })
+                }
+              </div>
+            )
+            })}
+        </tbody>
+      </table>
+    </div>
+  )
 }
 
 export default Board;
